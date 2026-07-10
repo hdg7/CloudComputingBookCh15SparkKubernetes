@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: spark-submit-job
+  namespace: default
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      serviceAccountName: spark
+      containers:
+      - name: spark-submit
+        image: apache/spark:3.5.1
+        command: ["/opt/spark/bin/spark-submit"]
+        args:
+          [
+            "--master","k8s://https://$(KUBERNETES_SERVICE_HOST):$(KUBERNETES_SERVICE_PORT)",
+            "--deploy-mode","cluster",
+            "--name","linear-regression",
+            "--conf","spark.kubernetes.namespace=default",
+            "--conf","spark.kubernetes.container.image=spark-env:latest",
+            "--conf","spark.kubernetes.container.image.pullPolicy=IfNotPresent",
+            "--conf","spark.kubernetes.authenticate.driver.serviceAccountName=spark",
+            "--conf","spark.executor.instances=3",
+            "--conf","spark.executor.memory=1g",
+            "--conf","spark.executor.cores=1",
+            "--conf","spark.driver.memory=1g",
+            "local:///workspace/linear_regression.py"
+          ]
