@@ -1,3 +1,9 @@
+# Chapter 15 Spark on Kubernetes
+
+This repository contains the Spark on Kubernetes tutorial mentioned in **Chapter 15** of the book:
+
+[**Cloud Computing for Artificial Intelligence: Concepts, Methods, and Practical Tools**](https://amzn.eu/d/02lMPIKf)
+
 # Spark on Kubernetes with Kind
 
 This guide explains how to build a Spark image, create a Kubernetes cluster using **Kind**, and run a Spark job in **native Kubernetes mode**.
